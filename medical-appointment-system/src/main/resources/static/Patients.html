@@ -38,39 +38,67 @@
     const API = "http://localhost:8080/patients";
 
     let editId = null;
+    let allPatients = [];
 
     function loadPatients() {
       fetch(API)
         .then(res => res.json())
         .then(data => {
-          let body = document.getElementById("tableBody");
-          body.innerHTML = "";
-
-          data.forEach(p => {
-            body.innerHTML += `
-              <tr class="border">
-                <td class="p-2">${p.name}</td>
-                <td>${p.contact}</td>
-                <td>${p.address}</td>
-                <td>
-                  <button onclick="editPatient(${p.id}, '${p.name}', '${p.contact}', '${p.address}')"
-                    class="bg-yellow-400 px-2 rounded">Edit</button>
-
-                  <button onclick="deletePatient(${p.id})"
-                    class="bg-red-500 text-white px-2 rounded">Delete</button>
-                </td>
-              </tr>
-            `;
-          });
-        });
+          allPatients = data;
+          displayPatients(data);
+        })
+        .catch(() => alert("Error loading patients"));
     }
 
+    function displayPatients(data) {
+      let body = document.getElementById("tableBody");
+      body.innerHTML = "";
+
+      data.forEach(p => {
+        body.innerHTML += `
+          <tr class="border">
+            <td class="p-2">${p.name}</td>
+            <td>${p.contact}</td>
+            <td>${p.address}</td>
+            <td>
+              <button onclick="editPatient(${p.id}, '${p.name}', '${p.contact}', '${p.address}')"
+                class="bg-yellow-400 px-2 rounded">Edit</button>
+
+              <button onclick="deletePatient(${p.id})"
+                class="bg-red-500 text-white px-2 rounded">Delete</button>
+            </td>
+          </tr>
+        `;
+      });
+    }
+
+    // 🔍 SEARCH
+    function searchPatients() {
+      let keyword = document.getElementById("search").value.toLowerCase();
+
+      let filtered = allPatients.filter(p =>
+        p.name.toLowerCase().includes(keyword)
+      );
+
+      displayPatients(filtered);
+    }
+
+    // ✅ VALIDATION + MESSAGES
     function addOrUpdate() {
+      let name = document.getElementById("name").value.trim();
+      let contact = document.getElementById("contact").value.trim();
+      let address = document.getElementById("address").value.trim();
+
+      if (!name || !contact || !address) {
+        alert("All fields are required!");
+        return;
+      }
+
       const data = {
         id: editId || Date.now(),
-        name: document.getElementById("name").value,
-        contact: document.getElementById("contact").value,
-        address: document.getElementById("address").value
+        name,
+        contact,
+        address
       };
 
       if (editId) {
@@ -78,18 +106,24 @@
           method: "PUT",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(data)
-        }).then(() => {
+        })
+        .then(() => {
+          alert("Patient updated successfully!");
           resetForm();
           loadPatients();
-        });
+        })
+        .catch(() => alert("Error updating patient"));
       } else {
         fetch(API, {
           method: "POST",
           headers: {"Content-Type": "application/json"},
           body: JSON.stringify(data)
-        }).then(() => {
+        })
+        .then(() => {
+          alert("Patient added successfully!");
           loadPatients();
-        });
+        })
+        .catch(() => alert("Error adding patient"));
       }
     }
 
@@ -102,9 +136,16 @@
       document.getElementById("submitBtn").innerText = "Update";
     }
 
+    // ✅ CONFIRM DELETE
     function deletePatient(id) {
+      if (!confirm("Are you sure you want to delete this patient?")) return;
+
       fetch(API + "/" + id, { method: "DELETE" })
-        .then(loadPatients);
+        .then(() => {
+          alert("Patient deleted successfully!");
+          loadPatients();
+        })
+        .catch(() => alert("Error deleting patient"));
     }
 
     function resetForm() {
