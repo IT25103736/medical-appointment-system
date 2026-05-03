@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <display-name>Medical Appointment Scheduling System</display-name>
+
+    <welcome-file-list>
+        <welcome-file>login.jsp</welcome-file>
+    </welcome-file-list>
+
+    <filter>
+        <filter-name>AuthFilter</filter-name>
+        <filter-class>com.medical.medical_appointment_system.controller.AuthFilter</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>AuthFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <servlet>
+        <servlet-name>LoginController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.LoginController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LoginController</servlet-name>
+        <url-pattern>/login</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LogoutController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.LogoutController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LogoutController</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>PatientController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.PatientController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>PatientController</servlet-name>
+        <url-pattern>/patients/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AppointmentController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.AppointmentController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AppointmentController</servlet-name>
+        <url-pattern>/appointments/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>ScheduleController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.ScheduleController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ScheduleController</servlet-name>
+        <url-pattern>/schedules/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DoctorController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.DoctorController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DoctorController</servlet-name>
+        <url-pattern>/doctors/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FeedbackController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.FeedbackController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FeedbackController</servlet-name>
+        <url-pattern>/feedback/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>AdminController</servlet-name>
+        <servlet-class>com.medical.medical_appointment_system.controller.AdminController</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AdminController</servlet-name>
+        <url-pattern>/admins/*</url-pattern>
+    </servlet-mapping>
+</web-app>
