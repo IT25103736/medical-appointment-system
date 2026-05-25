@@ -1,6 +1,6 @@
 package com.medical.medical_appointment_system.controller;
 
-import java.util.Scanner;
+import com.medical.medical_appointment_system.model.Feedback;
 import com.medical.medical_appointment_system.service.FeedbackService;
 
 public class FeedbackController extends AbstractCrudServlet<Feedback> {
