@@ -1,0 +1,14 @@
+<nav class="bg-white border-b shadow-sm">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-4 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+        <a href="<%= request.getContextPath() %>/dashboard.jsp" class="font-bold text-lg sm:text-xl text-blue-700 leading-tight">Medical Appointment Scheduling System</a>
+        <div class="flex items-center gap-2 sm:gap-4 text-sm flex-wrap">
+            <a class="hover:text-blue-600" href="<%= request.getContextPath() %>/patients.jsp">Patients</a>
+            <a class="hover:text-blue-600" href="<%= request.getContextPath() %>/appointments.jsp">Appointments</a>
+            <a class="hover:text-blue-600" href="<%= request.getContextPath() %>/schedules.jsp">Schedules</a>
+            <a class="hover:text-blue-600" href="<%= request.getContextPath() %>/doctors.jsp">Doctors</a>
+            <a class="hover:text-blue-600" href="<%= request.getContextPath() %>/feedback.jsp">Feedback</a>
+            <a class="hover:text-blue-600" href="<%= request.getContextPath() %>/admins.jsp">Admins</a>
+            <a class="bg-red-500 text-white px-3 py-2 rounded" href="<%= request.getContextPath() %>/logout">Logout</a>
+        </div>
+    </div>
+</nav>
